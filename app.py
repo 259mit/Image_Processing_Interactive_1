@@ -150,9 +150,9 @@ def morphol(img, r1, r2, g1, g2, b1, b2, k):
 
 
 def welcome():
-  st.title('An Interactive Image Processing Tutorial')
+  st.title('An Interactive Image Processing Tool')
   st.subheader('Mithesh Ramachandran')
-  st.markdown('Interactive tutorial to understand basics of parameter tuning in image processing')
+  st.markdown('Interactive Tool to understand basics of parameter tuning in image processing')
 
 
 im1 = read_image('Blue_Origin.jpg')
