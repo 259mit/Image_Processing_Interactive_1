@@ -1,5 +1,3 @@
-!sudo apt-get install tk
-
 import streamlit as st
 from pyngrok import ngrok
 import cv2
