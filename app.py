@@ -11,7 +11,8 @@ import re
 from numpy.lib.stride_tricks import as_strided
 import skimage.measure
 
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
+fixMatplotlib = True
 
 def main():
     selected_box = st.sidebar.selectbox(
