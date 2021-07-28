@@ -3,16 +3,12 @@ from pyngrok import ngrok
 import cv2
 import imutils
 import numpy as np
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import time
 import re
-from matplotlib.backends.backend_agg import RendererAgg
 from numpy.lib.stride_tricks import as_strided
 import skimage.measure
-
-_lock = RendererAgg.lock
 
 def main():
     selected_box = st.sidebar.selectbox(
@@ -373,38 +369,8 @@ def conv_pool():
   k = st.slider('Change size of the array',min_value = 4,max_value = 10, step = 2)
   array1 = np.random.randint(1, 10, (k,k))
   st.dataframe(pd.DataFrame(array1))
-  array2 = np.flip(array1.T, axis=1)
   st.markdown('Lets see the 2x2 kernel in action for this array')
   st.markdown('We\'re using a 2x2 kernel as it one of the most commonly used kernels. You can however use am mxm kernel.')
-  a = np.zeros((k,k))
-  p = 2
-  lista = []
-  ic = 0
-  pl = st.empty()
-  for i in range(0, k, p):
-    for j in range(0, k, p):
-      for m in range(1, p):
-        a[i,j] = 1
-        a[i+m,j] = 1
-        a[i,j+m] = 1
-        a[i+m,j+m] = 1
-        with _lock:
-          plt.matshow(a)
-          plt.hlines(y=np.arange(0, k)+0.5, xmin=np.full(k, 0)-0.5, xmax=np.full(k, k)-0.5, color="black")
-          plt.vlines(x=np.arange(0, k)+0.5, ymin=np.full(k, 0)-0.5, ymax=np.full(k, k)-0.5, color="black")
-          plt.axis("off")
-          #plt.figure(figsize=(5,5))
-          st.set_option('deprecation.showPyplotGlobalUse', False)
-          fig = plt.gcf()
-          fig.set_size_inches(18.5, 10.5)
-          ic = ic + 1
-          fig.savefig('test'+str(ic)+'.jpg', dpi=100)
-          #pl.pyplot()
-          #plt.imshow(a, interpolation='nearest')
-          #plt.show()
-          pl.image('test'+str(ic)+'.jpg')
-        a = np.zeros((k,k))
-        time.sleep(1)
   poolar = skimage.measure.block_reduce(array1, (2,2), np.max)
   st.markdown('The resulting array after applying MAX pooling would look like this!')
   st.dataframe(pd.DataFrame(poolar))
@@ -426,37 +392,6 @@ def conv_pool():
   array4 = np.pad(array4, pad_width=v, mode='constant', constant_values=0)
   st.dataframe(pd.DataFrame(array4))
   array5 = np.flip(array4.T, axis=1)
-  st.markdown('Lets see the 2x2 kernel in action for this array')
-  k2=k+2*v
-  c = np.zeros((k2,k2))
-  p = 2
-  listb = []
-  ic = 0
-  pl = st.empty()
-  for i in range(0, k2-1, p-1):
-    for j in range(0, k2-1, p-1):
-      for m in range(1, p):
-        c[i,j] = 1
-        c[i+m,j] = 1
-        c[i,j+m] = 1
-        c[i+m,j+m] = 1
-        with _lock:
-          plt.matshow(c)
-          plt.hlines(y=np.arange(0, k2)+0.5, xmin=np.full(k2, 0)-0.5, xmax=np.full(k2, k2)-0.5, color="black")
-          plt.vlines(x=np.arange(0, k2)+0.5, ymin=np.full(k2, 0)-0.5, ymax=np.full(k2, k2)-0.5, color="black")
-          plt.axis("off")
-          #plt.figure(figsize=(5,5))
-          st.set_option('deprecation.showPyplotGlobalUse', False)
-          fig = plt.gcf()
-          fig.set_size_inches(18.5, 10.5)
-          ic = ic + 1
-          fig.savefig('test2'+str(ic)+'.jpg', dpi=100)
-          #pl.pyplot()
-          #plt.imshow(a, interpolation='nearest')
-          #plt.show()
-          pl.image('test2'+str(ic)+'.jpg')
-        c = np.zeros((k2,k2))
-        time.sleep(0.5)
   poolar2 = pool2d(array4, kernel_size=2, stride=1, padding=0, pool_mode='max')
   st.markdown('The resulting array after applying MAX pooling WITH STRIDE 1/ PADDING would look like this!')
   st.dataframe(pd.DataFrame(poolar2))
