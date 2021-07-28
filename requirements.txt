@@ -1,5 +1,0 @@
-streamlit==0.81.0
-opencv-python-headless
-numpy==1.16.6
-imutils==0.5.4
-pyngrok==5.0.5
