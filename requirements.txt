@@ -4,4 +4,4 @@ matplotlib==2.2.5
 numpy==1.16.6
 imutils==0.5.4
 pyngrok==5.0.5
-skimage==0.0
+scikit-image==0.18
